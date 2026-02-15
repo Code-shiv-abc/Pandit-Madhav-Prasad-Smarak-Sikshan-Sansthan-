@@ -3,6 +3,7 @@ import RealTimeNotices from "@/components/RealTimeNotices";
 import AIChatWidget from "@/components/AIChatWidget";
 import About from "@/components/About";
 import Features from "@/components/Features";
+import Admissions from "@/components/Admissions";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
       <Features />
 
       {/* Live Updates Section */}
-      <section className="py-24 bg-slate-900/50 relative">
+      <section id="campus" className="py-24 bg-slate-900/50 relative">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-12 items-center justify-between">
              <div className="text-white max-w-xl">
@@ -38,6 +39,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Admissions Section */}
+      <Admissions />
 
       <Footer />
       <AIChatWidget />
