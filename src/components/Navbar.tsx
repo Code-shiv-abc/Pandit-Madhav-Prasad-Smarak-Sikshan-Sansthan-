@@ -18,11 +18,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Features", href: "#features" },
-    { name: "Campus Life", href: "#campus" },
-    { name: "Admissions", href: "#admissions" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Features", href: "/#features" },
+    { name: "Campus Life", href: "/campus" },
+    { name: "Admissions", href: "/admissions" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
