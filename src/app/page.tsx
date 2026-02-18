@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import RealTimeNotices from "@/components/RealTimeNotices";
 import AIChatWidget from "@/components/AIChatWidget";
@@ -28,9 +29,11 @@ export default function Home() {
                 <p className="text-slate-400 mb-8 text-lg leading-relaxed">
                   Stay connected with the heartbeat of our campus. From exam schedules to cultural events, get real-time updates ensuring you never miss a moment of the vibrant school life.
                 </p>
-                <button className="px-6 py-3 border border-slate-600 rounded-full text-slate-300 hover:text-white hover:border-white transition-all">
-                  View All Notices
-                </button>
+                <Link href="/campus">
+                  <button className="px-6 py-3 border border-slate-600 rounded-full text-slate-300 hover:text-white hover:border-white transition-all">
+                    View All Notices
+                  </button>
+                </Link>
              </div>
 
              <div className="w-full md:w-auto flex justify-center">

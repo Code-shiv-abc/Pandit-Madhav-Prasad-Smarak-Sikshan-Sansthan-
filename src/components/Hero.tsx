@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -48,15 +49,19 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row gap-4 justify-center items-center"
         >
-          <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50 flex items-center gap-2 group">
-            Explore Campus
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-          <button className="px-8 py-3 border border-slate-700 hover:border-blue-400 text-slate-300 hover:text-white rounded-full font-semibold transition-all backdrop-blur-sm bg-white/5 hover:bg-white/10">
-            Admissions Open
-          </button>
+          <Link href="/campus">
+            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-blue-900/50 flex items-center gap-2 group">
+              Explore Campus
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          </Link>
+          <Link href="/admissions">
+            <button className="px-8 py-3 border border-slate-700 hover:border-blue-400 text-slate-300 hover:text-white rounded-full font-semibold transition-all backdrop-blur-sm bg-white/5 hover:bg-white/10">
+              Admissions Open
+            </button>
+          </Link>
         </motion.div>
       </div>
 

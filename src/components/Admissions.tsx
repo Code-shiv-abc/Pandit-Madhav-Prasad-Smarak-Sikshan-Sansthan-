@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Admissions() {
@@ -21,9 +22,11 @@ export default function Admissions() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-blue-900 font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-              Apply Now
-            </button>
+            <Link href="/admissions">
+              <button className="px-8 py-4 bg-white text-blue-900 font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                Apply Now
+              </button>
+            </Link>
             <button className="px-8 py-4 border-2 border-white/20 hover:border-white text-white font-semibold rounded-full transition-all duration-300 backdrop-blur-sm bg-white/5">
               Download Prospectus
             </button>
