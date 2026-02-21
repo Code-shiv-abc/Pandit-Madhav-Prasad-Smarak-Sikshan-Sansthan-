@@ -35,13 +35,21 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform shrink-0">
             <GraduationCap className="w-6 h-6 text-white" />
           </div>
-          <span className="text-white font-bold text-lg md:text-xl tracking-tight hidden md:block">
-            PMPSSS
-          </span>
+          <div className="flex flex-col">
+            <span className="text-white font-bold text-sm md:text-base leading-tight hidden md:block">
+              Pandit Madhav Prasad Smarak
+            </span>
+            <span className="text-blue-400 font-semibold text-xs md:text-sm tracking-wider hidden md:block">
+              Sikshan Sansthan
+            </span>
+            <span className="text-white font-bold text-lg md:hidden">
+              PMPSSS
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Menu */}
