@@ -5,16 +5,16 @@ import { Target, Eye, Award, Users, GraduationCap, School } from "lucide-react";
 
 const leadership = [
   {
-    name: "Dr. Rajesh Sharma",
+    name: "Mr. Arvind Tiwari",
     role: "Principal",
     image: "bg-blue-900", // Placeholder color
-    bio: "With over 25 years in education, Dr. Sharma believes in fostering a learning environment that encourages curiosity and critical thinking."
+    bio: "With over 25 years in education, Mr. Tiwari believes in fostering a learning environment that encourages curiosity and critical thinking."
   },
   {
-    name: "Mrs. Anita Desai",
+    name: "Mr. Arvind Tripathi",
     role: "Vice Principal",
     image: "bg-emerald-900",
-    bio: "Dedicated to student welfare and academic excellence, Mrs. Desai ensures that every child receives personalized attention."
+    bio: "Dedicated to student welfare and academic excellence, Mr. Tripathi ensures that every child receives personalized attention."
   }
 ];
 

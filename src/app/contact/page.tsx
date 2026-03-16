@@ -63,7 +63,8 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold text-white mb-2">Call Us</h3>
                   <p className="text-slate-400 leading-relaxed">
                     +91 11 2345 6789<br />
-                    +91 98 7654 3210 (Admissions)
+                    +91 98 7654 3210 (Admissions)<br />
+                    +91 7355556366 (Principal)
                   </p>
                 </div>
               </div>
