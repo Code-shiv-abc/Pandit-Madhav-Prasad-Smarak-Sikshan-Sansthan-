@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Music, Palette, Microscope, Trophy, Globe } from "lucide-react";
+import { campusEvents } from "@/data/events";
 
 const clubs = [
   { name: "Science Club", icon: Microscope, color: "text-blue-400", desc: "Exploring the wonders of physics, chemistry, and biology through experiments." },
@@ -9,13 +10,6 @@ const clubs = [
   { name: "Sports Academy", icon: Trophy, color: "text-amber-400", desc: "Training champions in cricket, football, athletics, and more." },
   { name: "Debate Society", icon: Globe, color: "text-emerald-400", desc: "Fostering critical thinking and public speaking skills." },
   { name: "Music Club", icon: Music, color: "text-purple-400", desc: "From classical to contemporary, celebrating the joy of rhythm and melody." },
-];
-
-const events = [
-  { day: "15", month: "MAR", title: "Annual Sports Day", time: "09:00 AM", location: "Main Stadium" },
-  { day: "22", month: "MAR", title: "Science Exhibition", time: "10:30 AM", location: "School Auditorium" },
-  { day: "05", month: "APR", title: "Cultural Fest", time: "05:00 PM", location: "Open Air Theatre" },
-  { day: "10", month: "APR", title: "Parent-Teacher Meeting", time: "08:30 AM", location: "Classrooms" },
 ];
 
 const galleryItems = [
@@ -127,39 +121,50 @@ export default function CampusPage() {
           </div>
 
           <div className="space-y-4">
-            {events.map((event, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start md:items-center hover:bg-slate-900 transition-colors"
-              >
-                <div className="flex-shrink-0 bg-slate-800 rounded-lg p-4 text-center min-w-[80px]">
-                  <span className="block text-2xl font-bold text-white">{event.day}</span>
-                  <span className="block text-xs text-slate-400 uppercase tracking-wider">{event.month}</span>
-                </div>
+            {campusEvents.filter(e => new Date(e.date) >= new Date()).length === 0 ? (
+              <p className="text-slate-400">
+                No upcoming events scheduled. Check back soon.
+              </p>
+            ) : (
+              campusEvents.filter(e => new Date(e.date) >= new Date()).map((event, index) => {
+                const dateObj = new Date(event.date);
+                const day = dateObj.getDate().toString().padStart(2, '0');
+                const month = dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+                return (
+                  <motion.div
+                    key={event.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start md:items-center hover:bg-slate-900 transition-colors"
+                  >
+                    <div className="flex-shrink-0 bg-slate-800 rounded-lg p-4 text-center min-w-[80px]">
+                      <span className="block text-2xl font-bold text-white">{day}</span>
+                      <span className="block text-xs text-slate-400 uppercase tracking-wider">{month}</span>
+                    </div>
 
-                <div className="flex-grow">
-                  <h3 className="text-lg font-bold text-white mb-2">{event.title}</h3>
-                  <div className="flex flex-wrap gap-4 text-sm text-slate-400">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" /> {event.time}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" /> {event.location}
-                    </span>
-                  </div>
-                </div>
+                    <div className="flex-grow">
+                      <h3 className="text-lg font-bold text-white mb-2">{event.title}</h3>
+                      <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" /> {event.time}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" /> {event.venue}
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="flex-shrink-0 w-full md:w-auto">
-                   <button className="w-full md:w-auto px-4 py-2 border border-slate-700 rounded-lg text-sm text-slate-300 hover:text-white hover:border-white transition-colors">
-                     Details
-                   </button>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="flex-shrink-0 w-full md:w-auto">
+                      <button className="w-full md:w-auto px-4 py-2 border border-slate-700 rounded-lg text-sm text-slate-300 hover:text-white hover:border-white transition-colors">
+                        Details
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })
+            )}
           </div>
         </div>
       </section>

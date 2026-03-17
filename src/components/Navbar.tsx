@@ -56,9 +56,11 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
             </Link>
           ))}
-          <button className="px-5 py-2 bg-white text-slate-900 rounded-full text-sm font-semibold hover:bg-blue-50 transition-colors">
-            Portal Login
-          </button>
+          {process.env.NEXT_PUBLIC_PORTAL_ENABLED === 'true' && (
+            <button className="px-5 py-2 bg-white text-slate-900 rounded-full text-sm font-semibold hover:bg-blue-50 transition-colors">
+              Portal Login
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -90,9 +92,11 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <button className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold mt-2">
-                Portal Login
-              </button>
+              {process.env.NEXT_PUBLIC_PORTAL_ENABLED === 'true' && (
+                <button className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold mt-2">
+                  Portal Login
+                </button>
+              )}
             </div>
           </motion.div>
         )}

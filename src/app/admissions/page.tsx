@@ -3,19 +3,50 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { FileText, User, Calendar, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
+import { SCHOOL_INFO } from "@/config/school";
 
 export default function AdmissionsPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    studentName: '',
+    grade: 'Nursery',
+    parentName: '',
+    phone: '',
+    email: ''
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: FormEvent) => {
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.studentName) newErrors.studentName = 'Student name is required';
+    if (!formData.parentName) newErrors.parentName = 'Parent name is required';
+    if (!formData.phone) newErrors.phone = 'Phone number is required';
+    if (!formData.email) newErrors.email = 'Email address is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 2000);
+    if (!validate()) return;
+
+    setFormState('loading');
+    try {
+      const res = await fetch('/api/admissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setFormState('success');
+        setFormData({ studentName: '', grade: 'Nursery', parentName: '', phone: '', email: '' });
+      } else {
+        setFormState('error');
+      }
+    } catch {
+      setFormState('error');
+    }
   };
 
   const steps = [
@@ -80,7 +111,7 @@ export default function AdmissionsPage() {
       {/* Fee Structure */}
       <section className="py-20 px-4 bg-slate-900/30">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Fee Structure (2024-25)</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Fee Structure ({SCHOOL_INFO.currentAcademicYear})</h2>
           <div className="overflow-x-auto rounded-xl border border-slate-800">
             <table className="w-full text-left text-sm text-slate-400">
               <thead className="bg-slate-800 text-slate-200 uppercase font-semibold">
@@ -120,6 +151,7 @@ export default function AdmissionsPage() {
             </table>
           </div>
           <p className="mt-4 text-xs text-slate-500 text-center">* Fees are subject to change. Transport and optional activity fees are extra.</p>
+          <p className="text-slate-500 text-xs text-center">* Fees are subject to revision. Please contact the admissions office to confirm current rates.</p>
         </div>
       </section>
 
@@ -137,15 +169,15 @@ export default function AdmissionsPage() {
               <p className="text-slate-400">Fill out the form below to start your application.</p>
             </div>
 
-            {submitted ? (
+            {formState === 'success' ? (
               <div className="text-center py-12">
                 <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Application Submitted!</h3>
-                <p className="text-slate-400">We have received your details. Our admissions team will contact you shortly.</p>
+                <h3 className="text-xl font-bold text-white mb-2">Application submitted! Our admissions team will contact you soon.</h3>
+                <p className="text-slate-400">We have received your details.</p>
                 <button
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => setFormState('idle')}
                   className="mt-6 text-blue-400 hover:text-blue-300 font-semibold"
                 >
                   Submit another application
@@ -156,11 +188,12 @@ export default function AdmissionsPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Student Name</label>
-                    <input type="text" required className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="John Doe" />
+                    <input type="text" value={formData.studentName} onChange={(e) => setFormData({ ...formData, studentName: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="John Doe" />
+                    {errors.studentName && <p className="text-red-400 text-xs mt-1">{errors.studentName}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Grade Applying For</label>
-                    <select className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                    <select value={formData.grade} onChange={(e) => setFormData({ ...formData, grade: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                       <option>Nursery</option>
                       <option>Kindergarten</option>
                       <option>Grade 1</option>
@@ -175,25 +208,32 @@ export default function AdmissionsPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Parent Name</label>
-                    <input type="text" required className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Jane Doe" />
+                    <input type="text" value={formData.parentName} onChange={(e) => setFormData({ ...formData, parentName: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Jane Doe" />
+                    {errors.parentName && <p className="text-red-400 text-xs mt-1">{errors.parentName}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Contact Number</label>
-                    <input type="tel" required className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="+91 98765 43210" />
+                    <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="+91 98765 43210" />
+                    {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
-                  <input type="email" required className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="parent@example.com" />
+                  <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="parent@example.com" />
+                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
+
+                {formState === 'error' && (
+                  <p className="text-red-400 text-sm">Something went wrong. Please try again.</p>
+                )}
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={formState === 'loading'}
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? (
+                  {formState === 'loading' ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
                       Submitting...

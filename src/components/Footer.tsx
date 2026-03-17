@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
+import { SCHOOL_INFO } from "@/config/school";
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-xl font-bold text-white mb-4">Pandit Madhav Prasad Smarak Sikshan Sansthan</h3>
+            <h3 className="text-xl font-bold text-white mb-4">{SCHOOL_INFO.name}</h3>
             <p className="text-sm leading-relaxed mb-6 max-w-sm">
               Preparing young minds to lead with confidence, compassion, and limitless vision. Where tradition meets technology.
             </p>
@@ -28,6 +29,8 @@ export default function Footer() {
               <li><Link href="/#features" className="hover:text-white transition-colors">Academics</Link></li>
               <li><Link href="/campus" className="hover:text-white transition-colors">Campus Life</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link></li>
             </ul>
           </div>
 
@@ -37,22 +40,22 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
                 <MapPin className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>123 Knowledge Park, Education City, State - 400001</span>
+                <span>{SCHOOL_INFO.address}</span>
               </li>
               <li className="flex gap-3">
                 <Phone className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>+91 98765 43210</span>
+                <span>{SCHOOL_INFO.phone}</span>
               </li>
               <li className="flex gap-3">
                 <Mail className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>info@pmpsss.edu</span>
+                <span>{SCHOOL_INFO.email}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-slate-800 mt-12 pt-8 text-center text-xs text-slate-500">
-          <p>&copy; {new Date().getFullYear()} Pandit Madhav Prasad Smarak Sikshan Sansthan. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {SCHOOL_INFO.name}. All rights reserved.</p>
         </div>
       </div>
     </footer>
