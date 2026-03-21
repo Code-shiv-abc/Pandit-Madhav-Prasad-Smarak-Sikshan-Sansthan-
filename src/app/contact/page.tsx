@@ -1,9 +1,38 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Loader2 } from "lucide-react";
+import { SCHOOL_INFO } from "@/config/school";
 
 export default function ContactPage() {
+  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    subject: 'General Inquiry',
+    message: ''
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.phone) newErrors.phone = 'Phone number is required';
+    if (!formData.email) newErrors.email = 'Email address is required';
+    if (!formData.message) newErrors.message = 'Message is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setFormState('success');
+    setFormData({ name: '', phone: '', email: '', subject: 'General Inquiry', message: '' });
+  };
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
@@ -48,9 +77,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Visit Us</h3>
                   <p className="text-slate-400 leading-relaxed">
-                    Pandit Madhav Prasad Smarak Sikshan Sansthan<br />
-                    123 Education Lane, Knowledge Park<br />
-                    New Delhi, India - 110001
+                    {SCHOOL_INFO.name}<br />
+                    {SCHOOL_INFO.address}
                   </p>
                 </div>
               </div>
@@ -62,9 +90,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Call Us</h3>
                   <p className="text-slate-400 leading-relaxed">
-                    +91 11 2345 6789<br />
-                    +91 98 7654 3210 (Admissions)<br />
-                    +91 7355556366 (Principal)
+                    {SCHOOL_INFO.phone}<br />
+                    {SCHOOL_INFO.phoneAdmissions} (Admissions)
                   </p>
                 </div>
               </div>
@@ -76,8 +103,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Email Us</h3>
                   <p className="text-slate-400 leading-relaxed">
-                    info@pmpsss.edu.in<br />
-                    admissions@pmpsss.edu.in
+                    {SCHOOL_INFO.email}<br />
+                    {SCHOOL_INFO.emailAdmissions}
                   </p>
                 </div>
               </div>
@@ -89,8 +116,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Office Hours</h3>
                   <p className="text-slate-400 leading-relaxed">
-                    Monday - Saturday: 8:00 AM - 4:00 PM<br />
-                    Sunday: Closed
+                    {SCHOOL_INFO.officeHours}
                   </p>
                 </div>
               </div>
@@ -104,26 +130,29 @@ export default function ContactPage() {
               className="bg-slate-900 border border-slate-800 rounded-2xl p-8"
             >
               <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Your Name</label>
-                    <input type="text" className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="John Doe" />
+                    <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="John Doe" />
+                    {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">Phone Number</label>
-                    <input type="tel" className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="+91..." />
+                    <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="+91..." />
+                    {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
-                  <input type="email" className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="john@example.com" />
+                  <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="john@example.com" />
+                    {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Subject</label>
-                  <select className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                  <select value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                     <option>General Inquiry</option>
                     <option>Admissions</option>
                     <option>Student Support</option>
@@ -133,12 +162,29 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Message</label>
-                  <textarea rows={4} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="How can we help you?" />
+                  <textarea rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="How can we help you?" />
+                    {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                 </div>
 
-                <button type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition-colors flex items-center justify-center gap-2">
-                  Send Message
-                  <Send className="w-5 h-5" />
+                {formState === 'success' && (
+                  <p className="text-green-400 text-sm">Message sent! We&apos;ll get back to you shortly.</p>
+                )}
+                {formState === 'error' && (
+                  <p className="text-red-400 text-sm">Something went wrong. Please try again.</p>
+                )}
+
+                <button type="submit" disabled={formState === 'loading'} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                  {formState === 'loading' ? (
+                    <>
+                      Sending...
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-5 h-5" />
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
@@ -148,15 +194,17 @@ export default function ContactPage() {
 
       {/* Map Placeholder */}
       <section className="h-[400px] bg-slate-800 relative group overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <MapPin className="w-12 h-12 text-slate-600 mx-auto mb-4 group-hover:text-blue-500 transition-colors" />
-            <p className="text-slate-400 font-semibold">Map Loading...</p>
-            <p className="text-slate-600 text-sm">(This is a placeholder for Google Maps integration)</p>
-          </div>
+        <div className="relative w-full h-full">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=80.9,26.8,81.1,27.0&layer=mapnik"
+            // TODO: Replace bbox coordinates with real school coordinates once available
+            width="100%"
+            height="100%"
+            loading="lazy"
+            title="School Location Map"
+            className="w-full h-full border-0"
+          />
         </div>
-        {/* Simulating map interactive feel */}
-        <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-transparent transition-colors pointer-events-none" />
       </section>
     </main>
   );
