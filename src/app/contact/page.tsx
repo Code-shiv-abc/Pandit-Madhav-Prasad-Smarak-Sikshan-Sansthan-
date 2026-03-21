@@ -76,10 +76,15 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Visit Us</h3>
-                  <p className="text-slate-400 leading-relaxed">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SCHOOL_INFO.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-400 leading-relaxed hover:text-blue-400 transition-colors block"
+                  >
                     {SCHOOL_INFO.name}<br />
                     {SCHOOL_INFO.address}
-                  </p>
+                  </a>
                 </div>
               </div>
 
@@ -89,10 +94,14 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Call Us</h3>
-                  <p className="text-slate-400 leading-relaxed">
-                    {SCHOOL_INFO.phone}<br />
-                    {SCHOOL_INFO.phoneAdmissions} (Admissions)
-                  </p>
+                  <div className="text-slate-400 leading-relaxed flex flex-col">
+                    <a href={`tel:${SCHOOL_INFO.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-emerald-400 transition-colors">
+                      {SCHOOL_INFO.phone} (Principal)
+                    </a>
+                    <a href={`tel:${SCHOOL_INFO.phoneAdmissions.replace(/[^0-9+]/g, '')}`} className="hover:text-emerald-400 transition-colors">
+                      {SCHOOL_INFO.phoneAdmissions} (Admissions)
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -102,10 +111,14 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Email Us</h3>
-                  <p className="text-slate-400 leading-relaxed">
-                    {SCHOOL_INFO.email}<br />
-                    {SCHOOL_INFO.emailAdmissions}
-                  </p>
+                  <div className="text-slate-400 leading-relaxed flex flex-col">
+                    <a href={`mailto:${SCHOOL_INFO.email}`} className="hover:text-purple-400 transition-colors">
+                      {SCHOOL_INFO.email}
+                    </a>
+                    <a href={`mailto:${SCHOOL_INFO.emailAdmissions}`} className="hover:text-purple-400 transition-colors">
+                      {SCHOOL_INFO.emailAdmissions} (Admissions)
+                    </a>
+                  </div>
                 </div>
               </div>
 

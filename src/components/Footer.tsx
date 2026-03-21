@@ -38,17 +38,34 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-4 text-sm">
-              <li className="flex gap-3">
-                <MapPin className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>{SCHOOL_INFO.address}</span>
+              <li>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SCHOOL_INFO.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex gap-3 hover:text-white transition-colors group"
+                >
+                  <MapPin className="w-5 h-5 text-blue-500 shrink-0 group-hover:text-blue-400" />
+                  <span>{SCHOOL_INFO.address}</span>
+                </a>
               </li>
-              <li className="flex gap-3">
-                <Phone className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>{SCHOOL_INFO.phone}</span>
+              <li>
+                <a
+                  href={`tel:${SCHOOL_INFO.phone.replace(/[^0-9+]/g, '')}`}
+                  className="flex gap-3 hover:text-white transition-colors group"
+                >
+                  <Phone className="w-5 h-5 text-blue-500 shrink-0 group-hover:text-emerald-400" />
+                  <span>{SCHOOL_INFO.phone}</span>
+                </a>
               </li>
-              <li className="flex gap-3">
-                <Mail className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>{SCHOOL_INFO.email}</span>
+              <li>
+                <a
+                  href={`mailto:${SCHOOL_INFO.email}`}
+                  className="flex gap-3 hover:text-white transition-colors group"
+                >
+                  <Mail className="w-5 h-5 text-blue-500 shrink-0 group-hover:text-purple-400" />
+                  <span>{SCHOOL_INFO.email}</span>
+                </a>
               </li>
             </ul>
           </div>
