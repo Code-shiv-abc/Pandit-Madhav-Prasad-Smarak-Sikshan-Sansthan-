@@ -26,27 +26,11 @@ export default function AdmissionsPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-
-    setFormState('loading');
-    try {
-      const res = await fetch('/api/admissions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        setFormState('success');
-        setFormData({ studentName: '', grade: 'Nursery', parentName: '', phone: '', email: '' });
-      } else {
-        setFormState('error');
-      }
-    } catch {
-      setFormState('error');
-    }
+    setFormState('success');
+    setFormData({ studentName: '', grade: 'Nursery', parentName: '', phone: '', email: '' });
   };
 
   const steps = [

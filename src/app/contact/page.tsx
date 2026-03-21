@@ -26,27 +26,11 @@ export default function ContactPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-
-    setFormState('loading');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        setFormState('success');
-        setFormData({ name: '', phone: '', email: '', subject: 'General Inquiry', message: '' });
-      } else {
-        setFormState('error');
-      }
-    } catch {
-      setFormState('error');
-    }
+    setFormState('success');
+    setFormData({ name: '', phone: '', email: '', subject: 'General Inquiry', message: '' });
   };
 
   return (
