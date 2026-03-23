@@ -2,31 +2,16 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden bg-slate-900/50">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-        <div className="container mx-auto text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 text-white"
-          >
-            Get in <span className="text-blue-500">Touch</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Have questions about admissions, academics, or campus life? We&apos;re here to help. Reach out to us through any of the channels below.
-          </motion.p>
-        </div>
-      </section>
+      <PageHeader
+        title={<>Get in <span className="text-blue-500">Touch</span></>}
+        description="Have questions about admissions, academics, or campus life? We're here to help. Reach out to us through any of the channels below."
+      />
 
       {/* Contact Content */}
       <section className="py-20 px-4">

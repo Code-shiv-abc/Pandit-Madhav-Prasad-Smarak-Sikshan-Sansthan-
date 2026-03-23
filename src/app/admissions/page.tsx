@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { FileText, User, Calendar, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 export default function AdmissionsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,26 +29,10 @@ export default function AdmissionsPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden bg-slate-900/50">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-        <div className="container mx-auto text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 text-white"
-          >
-            Admissions <span className="text-blue-500">Open</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Join a community dedicated to academic excellence and holistic development. Apply now for the academic session 2024-25.
-          </motion.p>
-        </div>
-      </section>
+      <PageHeader
+        title={<>Admissions <span className="text-blue-500">Open</span></>}
+        description="Join a community dedicated to academic excellence and holistic development. Apply now for the academic session 2024-25."
+      />
 
       {/* Admission Process */}
       <section className="py-20 px-4">

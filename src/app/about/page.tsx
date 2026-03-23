@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Target, Eye, Award, Users, GraduationCap, School } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 const leadership = [
   {
@@ -29,26 +30,11 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950 pointer-events-none" />
-        <div className="container mx-auto text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-blue-200"
-          >
-            Our Legacy & Vision
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Since 1995, Pandit Madhav Prasad Smarak Sikshan Sansthan has been a beacon of knowledge, nurturing young minds to become global citizens grounded in values.
-          </motion.p>
-        </div>
-      </section>
+      <PageHeader
+        title="Our Legacy & Vision"
+        description="Since 1995, Pandit Madhav Prasad Smarak Sikshan Sansthan has been a beacon of knowledge, nurturing young minds to become global citizens grounded in values."
+        variant="blue"
+      />
 
       {/* Mission & Vision */}
       <section className="py-16 px-4 bg-slate-900/30">

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Music, Palette, Microscope, Trophy, Globe } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 const clubs = [
   { name: "Science Club", icon: Microscope, color: "text-blue-400", desc: "Exploring the wonders of physics, chemistry, and biology through experiments." },
@@ -31,26 +32,11 @@ export default function CampusPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-slate-950 pointer-events-none" />
-        <div className="container mx-auto text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-200 via-white to-purple-200"
-          >
-            Campus Life
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Experience a vibrant community where learning extends beyond the classroom. From cultural festivals to sports championships, every day is an opportunity to grow.
-          </motion.p>
-        </div>
-      </section>
+      <PageHeader
+        title="Campus Life"
+        description="Experience a vibrant community where learning extends beyond the classroom. From cultural festivals to sports championships, every day is an opportunity to grow."
+        variant="purple"
+      />
 
       {/* Gallery Grid */}
       <section className="py-16 px-4">
