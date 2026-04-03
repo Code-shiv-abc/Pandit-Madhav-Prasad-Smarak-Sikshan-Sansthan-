@@ -7,17 +7,16 @@ export interface CampusEvent {
 }
 
 export const campusEvents: CampusEvent[] = [
-  // TODO: Replace with real upcoming event dates
   {
     id: "1",
-    date: "2025-09-01",   // TODO: Replace with real date
+    date: "2026-11-15",
     title: "Annual Sports Day",
     time: "9:00 AM",
     venue: "School Ground",
   },
   {
     id: "2",
-    date: "2025-10-15",   // TODO: Replace with real date
+    date: "2026-12-10",
     title: "Science Exhibition",
     time: "10:00 AM",
     venue: "School Hall",
