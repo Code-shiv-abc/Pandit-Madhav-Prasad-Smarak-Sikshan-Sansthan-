@@ -7,6 +7,6 @@ export const SCHOOL_INFO = {
   email: "cvamtiwari73@gmail.com",
   emailAdmissions: "cvamtiwari73@gmail.com",
   officeHours: "Monday - Saturday: 8:00 AM - 2:00 PM",
-  mapEmbedUrl: "TODO: Replace with real coordinates",
+  mapEmbedUrl: "https://www.openstreetmap.org/export/embed.html?bbox=80.9,26.8,81.1,27.0&layer=mapnik",
   currentAcademicYear: "2025-26",
 } as const;

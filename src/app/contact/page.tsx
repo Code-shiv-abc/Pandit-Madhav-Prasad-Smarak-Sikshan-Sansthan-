@@ -196,13 +196,13 @@ export default function ContactPage() {
       <section className="h-[400px] bg-slate-800 relative group overflow-hidden">
         <div className="relative w-full h-full">
           <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=80.9,26.8,81.1,27.0&layer=mapnik"
-            // TODO: Replace bbox coordinates with real school coordinates once available
+            src={SCHOOL_INFO.mapEmbedUrl}
             width="100%"
             height="100%"
             loading="lazy"
             title="School Location Map"
             className="w-full h-full border-0"
+            sandbox="allow-scripts allow-same-origin"
           />
         </div>
       </section>
