@@ -14,9 +14,21 @@ export default function Footer() {
               Preparing young minds to lead with confidence, compassion, and limitless vision. Where tradition meets technology.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-blue-400 transition-colors"><Facebook className="w-5 h-5" /></a>
-              <a href="#" className="hover:text-blue-400 transition-colors"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="hover:text-pink-400 transition-colors"><Instagram className="w-5 h-5" /></a>
+              {SCHOOL_INFO.social.facebook && (
+                <a href={SCHOOL_INFO.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {SCHOOL_INFO.social.twitter && (
+                <a href={SCHOOL_INFO.social.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              )}
+              {SCHOOL_INFO.social.instagram && (
+                <a href={SCHOOL_INFO.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
 
