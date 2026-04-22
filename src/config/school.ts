@@ -9,4 +9,9 @@ export const SCHOOL_INFO = {
   officeHours: "Monday - Saturday: 8:00 AM - 2:00 PM",
   mapEmbedUrl: "https://www.openstreetmap.org/export/embed.html?bbox=80.9,26.8,81.1,27.0&layer=mapnik",
   currentAcademicYear: "2025-26",
+  social: {
+    facebook: process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK || "",
+    twitter: process.env.NEXT_PUBLIC_SOCIAL_TWITTER || "",
+    instagram: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM || "",
+  },
 } as const;
