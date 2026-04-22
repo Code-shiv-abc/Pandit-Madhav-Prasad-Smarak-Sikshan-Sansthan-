@@ -22,6 +22,9 @@ const galleryItems = [
 ];
 
 export default function CampusPage() {
+  const now = new Date();
+  const upcomingEvents = campusEvents.filter(e => new Date(e.date) >= now);
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
       {/* Hero Section */}
@@ -121,12 +124,12 @@ export default function CampusPage() {
           </div>
 
           <div className="space-y-4">
-            {campusEvents.filter(e => new Date(e.date) >= new Date()).length === 0 ? (
+            {upcomingEvents.length === 0 ? (
               <p className="text-slate-400">
                 No upcoming events scheduled. Check back soon.
               </p>
             ) : (
-              campusEvents.filter(e => new Date(e.date) >= new Date()).map((event, index) => {
+              upcomingEvents.map((event, index) => {
                 const dateObj = new Date(event.date);
                 const day = dateObj.getDate().toString().padStart(2, '0');
                 const month = dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
