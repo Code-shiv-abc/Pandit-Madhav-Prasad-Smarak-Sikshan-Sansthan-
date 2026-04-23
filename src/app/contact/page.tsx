@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Loader2, Navigation } from "lucide-react";
 import { SCHOOL_INFO } from "@/config/school";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -76,10 +77,19 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Visit Us</h3>
-                  <p className="text-slate-400 leading-relaxed">
+                  <p className="text-slate-400 leading-relaxed mb-3">
                     {SCHOOL_INFO.name}<br />
                     {SCHOOL_INFO.address}
                   </p>
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SCHOOL_INFO.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <Navigation className="w-4 h-4" />
+                    Get Directions
+                  </a>
                 </div>
               </div>
 
@@ -89,10 +99,23 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Call Us</h3>
-                  <p className="text-slate-400 leading-relaxed">
-                    {SCHOOL_INFO.phone}<br />
-                    {SCHOOL_INFO.phoneAdmissions} (Admissions)
+                  <p className="text-slate-400 leading-relaxed mb-4">
+                    <a href={`tel:${SCHOOL_INFO.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-emerald-400 transition-colors block">
+                      {SCHOOL_INFO.phone}
+                    </a>
+                    <a href={`tel:${SCHOOL_INFO.phoneAdmissions.replace(/[^0-9+]/g, '')}`} className="hover:text-emerald-400 transition-colors block">
+                      {SCHOOL_INFO.phoneAdmissions} <span className="text-sm">(Admissions)</span>
+                    </a>
                   </p>
+                  <a
+                    href={`https://wa.me/${SCHOOL_INFO.phone.replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    <WhatsAppIcon className="w-5 h-5" />
+                    Chat on WhatsApp
+                  </a>
                 </div>
               </div>
 

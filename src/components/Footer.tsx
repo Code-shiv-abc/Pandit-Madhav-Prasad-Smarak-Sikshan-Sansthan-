@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { SCHOOL_INFO } from "@/config/school";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Footer() {
   return (
@@ -56,7 +57,20 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Phone className="w-5 h-5 text-blue-500 shrink-0" />
-                <span>{SCHOOL_INFO.phone}</span>
+                <a href={`tel:${SCHOOL_INFO.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors">
+                  {SCHOOL_INFO.phone}
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <WhatsAppIcon className="w-5 h-5 text-[#25D366] shrink-0" />
+                <a
+                  href={`https://wa.me/${SCHOOL_INFO.phone.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Chat on WhatsApp
+                </a>
               </li>
               <li className="flex gap-3">
                 <Mail className="w-5 h-5 text-blue-500 shrink-0" />
