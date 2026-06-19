@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { FileText, User, Calendar, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
 import { SCHOOL_INFO } from "@/config/school";
+import { isValidEmail, isValidPhone } from "@/utils/validation";
 
 export default function AdmissionsPage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -18,10 +19,21 @@ export default function AdmissionsPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.studentName) newErrors.studentName = 'Student name is required';
-    if (!formData.parentName) newErrors.parentName = 'Parent name is required';
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
-    if (!formData.email) newErrors.email = 'Email address is required';
+    if (!formData.studentName.trim()) newErrors.studentName = 'Student name is required';
+    if (!formData.parentName.trim()) newErrors.parentName = 'Parent name is required';
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!isValidPhone(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number (min 10 digits)';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required';
+    } else if (!isValidEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
