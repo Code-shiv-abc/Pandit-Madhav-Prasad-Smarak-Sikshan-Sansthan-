@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, Loader2, Navigation } from "lucide-react";
 import { SCHOOL_INFO } from "@/config/school";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { isValidEmail, isValidPhone } from "@/utils/validation";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -19,10 +20,21 @@ export default function ContactPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
-    if (!formData.email) newErrors.email = 'Email address is required';
-    if (!formData.message) newErrors.message = 'Message is required';
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!isValidPhone(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number (min 10 digits)';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required';
+    } else if (!isValidEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
