@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Music, Palette, Microscope, Trophy, Globe } from "lucide-react";
 import { campusEvents } from "@/data/events";
@@ -22,8 +23,19 @@ const galleryItems = [
 ];
 
 export default function CampusPage() {
-  const now = new Date();
-  const upcomingEvents = campusEvents.filter(e => new Date(e.date) >= now);
+  const upcomingEvents = useMemo(() => {
+    const now = new Date();
+    return campusEvents
+      .filter((e) => new Date(e.date) >= now)
+      .map((event) => {
+        const dateObj = new Date(event.date);
+        return {
+          ...event,
+          day: dateObj.getDate().toString().padStart(2, "0"),
+          month: dateObj.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+        };
+      });
+  }, [campusEvents]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-24">
@@ -65,12 +77,12 @@ export default function CampusPage() {
               >
                 <div className={`w-full h-full ${item.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors">
-                    {/* Placeholder content since we don't have images */}
-                    <div className="w-full h-full bg-slate-800/50 flex items-end p-4">
-                        <span className="font-semibold text-white drop-shadow-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                            {item.title}
-                        </span>
-                    </div>
+                  {/* Placeholder content since we don't have images */}
+                  <div className="w-full h-full bg-slate-800/50 flex items-end p-4">
+                    <span className="font-semibold text-white drop-shadow-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      {item.title}
+                    </span>
+                  </div>
                 </div>
                 {/* Border effect */}
                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-xl transition-colors" />
@@ -129,44 +141,39 @@ export default function CampusPage() {
                 No upcoming events scheduled. Check back soon.
               </p>
             ) : (
-              upcomingEvents.map((event, index) => {
-                const dateObj = new Date(event.date);
-                const day = dateObj.getDate().toString().padStart(2, '0');
-                const month = dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-                return (
-                  <motion.div
-                    key={event.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start md:items-center hover:bg-slate-900 transition-colors"
-                  >
-                    <div className="flex-shrink-0 bg-slate-800 rounded-lg p-4 text-center min-w-[80px]">
-                      <span className="block text-2xl font-bold text-white">{day}</span>
-                      <span className="block text-xs text-slate-400 uppercase tracking-wider">{month}</span>
-                    </div>
+              upcomingEvents.map((event, index) => (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start md:items-center hover:bg-slate-900 transition-colors"
+                >
+                  <div className="flex-shrink-0 bg-slate-800 rounded-lg p-4 text-center min-w-[80px]">
+                    <span className="block text-2xl font-bold text-white">{event.day}</span>
+                    <span className="block text-xs text-slate-400 uppercase tracking-wider">{event.month}</span>
+                  </div>
 
-                    <div className="flex-grow">
-                      <h3 className="text-lg font-bold text-white mb-2">{event.title}</h3>
-                      <div className="flex flex-wrap gap-4 text-sm text-slate-400">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" /> {event.time}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" /> {event.venue}
-                        </span>
-                      </div>
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-bold text-white mb-2">{event.title}</h3>
+                    <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" /> {event.time}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4" /> {event.venue}
+                      </span>
                     </div>
+                  </div>
 
-                    <div className="flex-shrink-0 w-full md:w-auto">
-                      <button className="w-full md:w-auto px-4 py-2 border border-slate-700 rounded-lg text-sm text-slate-300 hover:text-white hover:border-white transition-colors">
-                        Details
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })
+                  <div className="flex-shrink-0 w-full md:w-auto">
+                    <button className="w-full md:w-auto px-4 py-2 border border-slate-700 rounded-lg text-sm text-slate-300 hover:text-white hover:border-white transition-colors">
+                      Details
+                    </button>
+                  </div>
+                </motion.div>
+              ))
             )}
           </div>
         </div>
